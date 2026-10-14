@@ -1,0 +1,665 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>De Machine</title>
+<meta name="description" content="Vijf overbodige werktuigen voor het menselijk tekort: nonchalance, apathie, Maslow, kennis en een machine die u beschrijft terwijl u leest.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..900;1,6..96,400..900&family=Archivo:wght@400;500;600&family=DM+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: a machine hall — brass console up top, five halls (zalen) on a tour route, an official verdict at the exit. Single dark look by choice. */
+:root{
+  --bg:#11131C; --panel:#191C28; --panel-2:#21253A; --line:#343952;
+  --bone:#ECE4D3; --muted:#A29E93; --brass:#C9A55A; --brass-hi:#EBCB86; --brass-lo:#7E6631;
+  --oxblood:#C4554B; --verdigris:#71B5A2;
+  --display:"Bodoni Moda","Didot","Bodoni 72",Georgia,serif;
+  --body:"Archivo",ui-sans-serif,system-ui,sans-serif;
+  --mono:"DM Mono",ui-monospace,Menlo,monospace;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0}
+.eyebrow{display:flex;justify-content:space-between;align-items:center;gap:8px 16px;flex-wrap:wrap}
+.lang{font-family:var(--mono);font-size:12px;letter-spacing:.06em;color:var(--brass-hi);text-decoration:none;border:1px solid var(--brass-lo);border-radius:999px;padding:3px 12px}
+.lang:hover{background:var(--panel-2)}
+[hidden]{display:none!important}
+body{background:var(--bg);color:var(--bone);font-family:var(--body);font-size:16px;line-height:1.55}
+.wrap{max-width:1120px;margin:0 auto;padding-inline:20px;padding-block:0 80px}
+button{font:inherit;color:inherit;cursor:pointer}
+:focus-visible{outline:2px solid var(--brass-hi);outline-offset:3px}
+p{margin:0}
+.mono{font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.brass{color:var(--brass)}
+
+/* hero */
+.hero{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,1fr);gap:24px 40px;align-items:center;padding-block:44px 28px;border-bottom:1px solid var(--line)}
+.hero h1{font-family:var(--display);font-weight:800;font-size:clamp(64px,13vw,168px);line-height:.84;letter-spacing:-.035em;margin:14px 0 0}
+.hero h1 em{font-style:italic;font-weight:400;color:var(--brass);letter-spacing:-.02em;display:block}
+.hero h1 small{display:block;font-family:var(--body);font-size:15px;font-weight:500;letter-spacing:0;color:var(--muted);margin-top:16px;line-height:1.4}
+.lede{font-size:19px;max-width:46ch;margin-top:22px;text-wrap:pretty}
+.lede b{font-weight:600;color:var(--brass-hi)}
+.lever-row{display:flex;flex-wrap:wrap;align-items:center;gap:12px 18px;margin-top:26px}
+.lever{border:1px solid var(--brass);background:linear-gradient(180deg,var(--brass-hi),var(--brass) 55%,var(--brass-lo));color:var(--bg);font-family:var(--display);font-weight:700;font-size:20px;padding:12px 26px;border-radius:999px;box-shadow:inset 0 1px 0 rgb(255 255 255 / .35),0 6px 20px rgb(0 0 0 / .4)}
+.lever:active{transform:translateY(1px)}
+#leverSay{font-style:italic;color:var(--muted);max-width:38ch}
+.gears{position:relative;aspect-ratio:1;max-width:420px;width:100%;justify-self:center}
+.gears svg{position:absolute;inset:0;width:100%;height:100%;overflow:hidden}
+
+/* console */
+.console{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:12px;padding-block:26px;border-bottom:1px solid var(--line)}
+.dial{display:grid;justify-items:center;gap:2px;text-align:center;min-width:0}
+.dial svg{width:100%;max-width:120px;height:auto}
+.dial .v{font-family:var(--display);font-weight:700;font-size:22px;font-variant-numeric:tabular-nums;margin-top:-34px;margin-bottom:12px}
+.dial .n{font-family:var(--mono);font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.dial.total .v{color:var(--brass-hi)}
+.console-cap{grid-column:1/-1;display:flex;flex-wrap:wrap;justify-content:space-between;gap:6px 20px}
+
+/* halls */
+.hall{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:28px 48px;padding-block:64px;border-bottom:1px solid var(--line);scroll-margin-top:12px}
+.plaque{display:grid;gap:14px;align-content:start;min-width:0}
+.hallno{font-family:var(--display);font-style:italic;font-size:22px;color:var(--brass)}
+.hall h2{font-family:var(--display);font-weight:800;font-size:clamp(36px,5.4vw,60px);line-height:.95;letter-spacing:-.025em;margin:0;text-wrap:balance;overflow-wrap:anywhere}
+.hall h2 i{font-weight:400;color:var(--brass)}
+.sub{font-family:var(--mono);font-size:12px;letter-spacing:.06em;color:var(--muted);text-transform:uppercase}
+.plaque p.body{max-width:46ch;color:var(--bone);text-wrap:pretty}
+.plaque p.body + p.body{margin-top:-2px}
+.apparatus{background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:22px;display:grid;gap:16px;min-width:0;position:relative}
+.apparatus::before{content:"";position:absolute;inset:6px;border:1px solid var(--line);border-radius:3px;pointer-events:none;opacity:.55}
+.rivets{position:absolute;inset:0;pointer-events:none}
+.rivets i{position:absolute;width:6px;height:6px;border-radius:50%;background:var(--brass-lo)}
+.rivets i:nth-child(1){top:12px;left:12px}.rivets i:nth-child(2){top:12px;right:12px}.rivets i:nth-child(3){bottom:12px;left:12px}.rivets i:nth-child(4){bottom:12px;right:12px}
+.say{font-family:var(--display);font-style:italic;font-size:21px;line-height:1.3;color:var(--bone);min-height:2.6em;text-wrap:balance}
+.stat{font-family:var(--mono);font-size:12px;color:var(--muted);letter-spacing:.04em}
+.aha{border-left:2px solid var(--verdigris);padding:4px 0 4px 16px;display:grid;gap:6px;max-width:52ch}
+.aha .mono{color:var(--verdigris)}
+.aha p{font-size:15.5px}
+@media (prefers-reduced-motion:no-preference){.aha.reveal{animation:rise .7s ease both}@keyframes rise{from{opacity:.0;transform:translateY(8px)}to{opacity:1;transform:none}}}
+
+.bigbtn{border:1px solid var(--brass);background:radial-gradient(circle at 50% 35%,var(--brass-hi),var(--brass) 55%,var(--brass-lo));color:var(--bg);font-family:var(--display);font-weight:800;font-size:clamp(22px,4vw,30px);border-radius:50%;width:min(210px,62vw);aspect-ratio:1;justify-self:center;box-shadow:inset 0 2px 0 rgb(255 255 255 / .4),inset 0 -8px 18px rgb(0 0 0 / .25),0 10px 30px rgb(0 0 0 / .45);padding:16px;line-height:1.05;text-wrap:balance}
+.bigbtn:active{transform:translateY(2px) scale(.985)}
+.meter{display:grid;gap:6px}
+.meter .row{display:flex;justify-content:space-between;align-items:baseline;gap:12px}
+.meter .num{font-family:var(--display);font-weight:800;font-size:56px;line-height:1;font-variant-numeric:tabular-nums}
+.bar{height:10px;border-radius:5px;background:var(--panel-2);overflow:hidden;border:1px solid var(--line)}
+.bar i{display:block;height:100%;background:linear-gradient(90deg,var(--brass-lo),var(--brass-hi));width:0;transition:width .25s linear}
+
+/* apathy */
+.reservoir{display:grid;gap:6px}
+.care{display:grid;gap:8px}
+.care-row{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:4px 12px;align-items:center;padding:8px 0;border-bottom:1px dashed var(--line)}
+.care-row .nm{font-weight:500;overflow-wrap:anywhere}
+.care-row .bar{grid-column:1/2;height:6px}
+.care-row .bar i{background:linear-gradient(90deg,var(--oxblood),var(--brass))}
+.care-row button{grid-row:1/3;grid-column:2;border:1px solid var(--brass);background:none;color:var(--brass-hi);border-radius:999px;padding:6px 14px;font-size:14px;white-space:nowrap}
+.care-row button:hover{background:var(--panel-2)}
+.care-row.gone .nm{color:var(--muted);text-decoration:line-through;text-decoration-color:var(--oxblood)}
+.care-row.gone button{border-color:var(--line);color:var(--muted)}
+.care-row .tag{font-family:var(--mono);font-size:11px;color:var(--oxblood);margin-left:8px;text-decoration:none;display:inline-block}
+
+/* maslow */
+.pyr{display:grid;gap:5px}
+.layer{display:grid;grid-template-columns:minmax(0,58%) minmax(0,1fr);gap:14px;align-items:center;background:none;border:0;padding:0;text-align:left;width:100%}
+.shape{height:48px;background:var(--panel-2);border:0;position:relative;transition:background .3s}
+.layer.full .shape{background:linear-gradient(180deg,var(--brass-hi),var(--brass))}
+.layer.paused .shape{background:linear-gradient(180deg,var(--brass-lo),var(--panel-2))}
+.layer .lbl{display:grid;gap:0;min-width:0}
+.layer .lbl b{font-weight:600;font-size:15px;line-height:1.2;overflow-wrap:anywhere}
+.layer .lbl span{font-family:var(--mono);font-size:11px;color:var(--muted)}
+.layer.base .shape{height:30px;background:repeating-linear-gradient(135deg,var(--panel-2) 0 8px,var(--line) 8px 10px)}
+.layer:hover .shape{filter:brightness(1.15)}
+.layer.trans .shape{height:40px}
+.layer.trans.full .shape{background:linear-gradient(180deg,var(--bone),var(--verdigris))}
+@media (prefers-reduced-motion:no-preference){.shake{animation:shake .4s}@keyframes shake{20%{transform:translateX(-8px)}40%{transform:translateX(7px)}60%{transform:translateX(-5px)}80%{transform:translateX(3px)}}}
+
+/* knowledge */
+.island-wrap{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:18px;align-items:center}
+.island{width:100%;max-width:360px;aspect-ratio:1;justify-self:center}
+.kstats{display:grid;gap:10px}
+.kstat{display:grid;gap:0}
+.kstat b{font-family:var(--display);font-weight:800;font-size:30px;font-variant-numeric:tabular-nums;line-height:1.05}
+.kstat span{font-family:var(--mono);font-size:11px;color:var(--muted);letter-spacing:.06em;text-transform:uppercase}
+.fact{font-family:var(--display);font-size:20px;line-height:1.3;text-wrap:pretty}
+.newq{color:var(--verdigris);font-style:italic}
+.qlist{display:flex;flex-wrap:wrap;gap:6px}
+.qlist span{font-size:12.5px;border:1px solid var(--line);border-radius:999px;padding:3px 10px;color:var(--muted)}
+.conf{display:grid;gap:4px}
+.conf svg{width:100%;height:auto;display:block}
+.btnrow{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.btn{border:1px solid var(--brass);background:var(--panel-2);color:var(--brass-hi);border-radius:999px;padding:10px 20px;font-weight:600}
+.btn:hover{background:var(--line)}
+.btn.solid{background:var(--brass);color:var(--bg)}
+.btn:disabled{opacity:.5;cursor:default}
+
+/* meta */
+.log{display:grid;gap:0;max-height:300px;overflow:auto;border-top:1px solid var(--line);font-size:14px}
+.log div{display:grid;grid-template-columns:52px minmax(0,1fr);gap:10px;padding:7px 0;border-bottom:1px solid var(--line)}
+.log time{font-family:var(--mono);font-size:11.5px;color:var(--brass);font-variant-numeric:tabular-nums;padding-top:2px}
+.metastats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.built{font-family:var(--display);font-size:19px;line-height:1.3}
+.built small{display:block;font-family:var(--mono);font-size:11.5px;color:var(--muted);margin-top:4px}
+.nest{border:1px solid var(--brass-lo);padding:8px 8px 10px;border-radius:3px;font-family:var(--mono);font-size:11px;color:var(--muted);display:grid;gap:6px;min-width:0}
+.nest > span{overflow-wrap:anywhere}
+
+/* finale */
+.finale{padding-block:64px 24px;display:grid;gap:22px;justify-items:start}
+.finale h2{font-family:var(--display);font-weight:800;font-size:clamp(40px,7vw,84px);line-height:.92;letter-spacing:-.03em;margin:0}
+.finale h2 i{font-weight:400;color:var(--brass)}
+.letter{background:var(--bone);color:var(--bg);width:100%;max-width:760px;padding:clamp(20px,5vw,48px);border-radius:2px;display:grid;gap:14px;box-shadow:0 20px 50px rgb(0 0 0 / .5);font-size:15.5px}
+.letter .head{display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;border-bottom:1px solid var(--brass-lo);padding-bottom:12px}
+.letter .inst{font-family:var(--display);font-weight:700;font-size:20px;line-height:1.15}
+.letter .inst span{display:block;font-family:var(--mono);font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;font-weight:400;margin-top:4px;color:var(--brass-lo)}
+.letter dl{display:grid;grid-template-columns:auto minmax(0,1fr);gap:2px 14px;margin:0;font-family:var(--mono);font-size:12px}
+.letter dt{color:var(--brass-lo)}
+.letter dd{margin:0}
+.letter p{max-width:62ch}
+.letter .verdict{font-family:var(--display);font-size:24px;font-weight:700;line-height:1.2;font-style:italic}
+.letter .seal{justify-self:end;width:92px;height:92px}
+
+footer{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:28px 48px;padding-block:44px 0;border-top:1px solid var(--line);margin-top:40px;font-size:14px;color:var(--muted)}
+footer h3{font-family:var(--display);font-style:italic;font-weight:400;color:var(--brass);font-size:20px;margin:0 0 10px}
+footer ol{margin:0;padding-left:1.4em;display:grid;gap:6px}
+footer li::marker{font-family:var(--mono);color:var(--brass-lo)}
+
+@media (max-width:860px){
+  .hero,.hall,footer{grid-template-columns:minmax(0,1fr)}
+  .gears{max-width:300px;grid-row:1}
+  .console{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .island-wrap{grid-template-columns:minmax(0,1fr)}
+}
+@media (max-width:420px){
+  .wrap{padding-inline:16px}
+  .metastats{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
+  .layer{grid-template-columns:minmax(0,52%) minmax(0,1fr)}
+}
+</style>
+</head>
+<body>
+
+
+<div class="wrap">
+
+<header class="hero">
+  <div>
+    <div class="eyebrow"><span class="mono">Koninklijk Instituut voor Overbodige Werktuigen · Afd. Menselijk Tekort</span><a class="lang" href="https://mvanpassel-cmyk.github.io/the-machine/" hreflang="en" lang="en">English</a></div>
+    <h1>De <em>Machine</em><small>in vijf delen, waarvan één u</small></h1>
+    <p class="lede">Vijf werktuigen voor de dingen die mensen het hardst proberen en het slechtst kunnen: <b>niet proberen</b>, <b>niet geven om</b>, <b>behoeven</b>, <b>weten</b> en <b>over zichzelf nadenken</b>. Ze draaien op uw aandacht. Ze zijn allemaal met elkaar verbonden. Dat merkt u vanzelf.</p>
+    <div class="lever-row">
+      <button class="lever" id="lever">Inschakelen</button>
+      <span id="leverSay">De hendel is gepoetst. Verder is er weinig aan gedaan.</span>
+    </div>
+  </div>
+  <div class="gears" aria-hidden="true"><svg id="gearSvg" viewBox="0 -20 440 480"></svg></div>
+</header>
+
+<section class="console" aria-label="Bedieningspaneel">
+  <div class="console-cap"><span class="mono">Bedieningspaneel · live</span><span class="mono" id="consoleCap">Rendement wordt berekend zodra u iets doet. Of juist niet.</span></div>
+</section>
+
+<section class="hall" id="z1">
+  <div class="plaque">
+    <div class="hallno">Zaal I</div>
+    <h2>De Nonchalance&shy;machine</h2>
+    <div class="sub">Ontworpen 1528 · nooit met opzet gebruikt</div>
+    <p class="body">Een knop met één functie: hij werkt niet als u hem gebruikt. Nonchalance stijgt alleen wanneer u niets aanraakt. Scrollen en lezen mag. Klikken, typen of willen niet.</p>
+    <p class="body">Het Nederlandse ontwerp volgt de bekende richtlijn: <i>doe maar gewoon, dan doe je al gek genoeg.</i></p>
+  </div>
+  <div class="apparatus">
+    <div class="rivets"><i></i><i></i><i></i><i></i></div>
+    <div class="meter">
+      <div class="row"><span class="mono">Nonchalance</span><span class="num" id="nNum">35</span></div>
+      <div class="bar"><i id="nBar"></i></div>
+      <div class="stat" id="nStat">De machine wacht. Niet op u, gewoon in het algemeen.</div>
+    </div>
+    <button class="bigbtn" id="nBtn">Probeer het</button>
+    <p class="say" id="nSay">Prima.</p>
+    <div class="aha" id="aha1" hidden>
+      <span class="mono">Aha · Zaal I</span>
+      <p>In 1528 beschreef Baldassare Castiglione <i>sprezzatura</i>: een zekere nonchalance die alle kunst verbergt en alles moeiteloos laat lijken. Die moeiteloosheid kostte hovelingen jaren oefening. U bereikte haar zojuist door niets te doen. Dat is de enige route, en u kunt hem niet nemen door het te proberen.</p>
+    </div>
+  </div>
+</section>
+
+<section class="hall" id="z2">
+  <div class="plaque">
+    <div class="hallno">Zaal II</div>
+    <h2>De Apathie&shy;machine</h2>
+    <div class="sub">Draait alleen als u kijkt</div>
+    <p class="body">Zeven zorgen lopen langzaam leeg. U kunt om ze geven, maar geven kost zorgeenheden, en uw reservoir vult zich trager dan de zorgen weglekken. Dat is met opzet zo afgesteld. Het is ook zo in het echt.</p>
+    <p class="body">Scroll weg en alles staat stil. Kijk en het lekt weer.</p>
+  </div>
+  <div class="apparatus">
+    <div class="rivets"><i></i><i></i><i></i><i></i></div>
+    <div class="reservoir">
+      <div class="meter"><div class="row"><span class="mono">Zorgreservoir</span><span class="stat" id="resNum">100 ze</span></div><div class="bar"><i id="resBar"></i></div></div>
+    </div>
+    <div class="care" id="care"></div>
+    <p class="say" id="cSay">Kies waar u om geeft. U kunt niet alles kiezen.</p>
+    <div class="aha" id="aha2" hidden>
+      <span class="mono">Aha · Zaal II</span>
+      <p id="aha2a">Voor de Stoïcijnen was <i>apatheia</i> een deugd: vrij zijn van verstorende hartstochten. Pas later werd het een klacht. U liet net iets los, en de wereld bleef draaien.</p>
+      <p id="aha2b" hidden>Apathie is meestal geen gebrek aan gevoel. Het is een begroting die niet sluit. Wat u in leven hield, zegt meer over u dan wat u losliet.</p>
+    </div>
+  </div>
+</section>
+
+<section class="hall" id="z3">
+  <div class="plaque">
+    <div class="hallno">Zaal III</div>
+    <h2>De Piramide-van-<i>Maslow</i>&shy;machine</h2>
+    <div class="sub">Ontworpen door iemand anders</div>
+    <p class="body">Vul uw behoeften, van onder naar boven. De machine is streng: een laag overslaan mag niet. Onder de piramide ligt een fundering die er later bij is gekomen. Iedereen herkent haar.</p>
+    <p class="body">Bovenin wacht zelfactualisatie. Wat daarna komt, staat niet op de tekening.</p>
+  </div>
+  <div class="apparatus">
+    <div class="rivets"><i></i><i></i><i></i><i></i></div>
+    <div class="pyr" id="pyr"></div>
+    <p class="say" id="mSay">Begin onderaan. Iedereen begint onderaan.</p>
+    <div class="aha" id="aha3" hidden>
+      <span class="mono">Aha · Zaal III</span>
+      <p>Abraham Maslow heeft deze piramide nooit getekend. De vorm verscheen in 1960 bij managementadviseur Charles McDermid en werd daarna overal gekopieerd. Maslow schreef zelf dat de volgorde niet strikt is. Deze machine weigerde u toch. Zo werkt de piramide in de praktijk: strenger dan haar bedenker.</p>
+      <p id="aha3b" hidden>Later in zijn leven beschreef Maslow nog een niveau boven zelfactualisatie: zelftranscendentie, je inzetten voor iets dat groter is dan jezelf. Het haalde de tekening nooit.</p>
+    </div>
+  </div>
+</section>
+
+<section class="hall" id="z4">
+  <div class="plaque">
+    <div class="hallno">Zaal IV</div>
+    <h2>De Kennis&shy;machine</h2>
+    <div class="sub">Hoe meer u weet, hoe groter zij wordt</div>
+    <p class="body">Wat u weet is een eiland. Elke keer dat u iets leert, groeit het eiland, en daarmee de kust waar het bekende het onbekende raakt. Elk feit levert een nieuwe vraag op. Het gesprek eindigt nooit. Daar is het voor bedoeld.</p>
+    <p class="body">Rechtsonder houdt de machine uw zelfvertrouwen bij. U kent de vorm van die lijn waarschijnlijk al.</p>
+  </div>
+  <div class="apparatus">
+    <div class="rivets"><i></i><i></i><i></i><i></i></div>
+    <div class="island-wrap">
+      <svg class="island" id="island" viewBox="0 0 300 300" role="img" aria-label="Het eiland van kennis"></svg>
+      <div class="kstats">
+        <div class="kstat"><b id="kA">0</b><span>Oppervlak van wat u weet</span></div>
+        <div class="kstat"><b id="kP">0</b><span>Kust van het onbekende</span></div>
+        <div class="kstat"><b id="kN">0</b><span>Open vragen</span></div>
+      </div>
+    </div>
+    <p class="fact" id="kFact">Nog niets geleerd. Het eiland is een rots met een vlag.</p>
+    <p class="newq" id="kQ"></p>
+    <div class="btnrow"><button class="btn solid" id="kBtn">Leer iets</button></div>
+    <div class="conf">
+      <div class="row" style="display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap"><span class="mono">Zelfvertrouwen</span><span class="stat" id="kConfLbl">Nog geen mening</span></div>
+      <svg id="confSvg" viewBox="0 0 300 80" preserveAspectRatio="none" style="height:80px"></svg>
+    </div>
+    <div class="qlist" id="qlist"></div>
+    <div class="aha" id="aha4" hidden>
+      <span class="mono">Aha · Zaal IV</span>
+      <p>Het oppervlak van een cirkel groeit met het kwadraat van de straal, de omtrek gewoon met de straal. Maar de kust is waar de vragen liggen, en die raakt nooit op. Marcelo Gleiser noemde dit het eiland van kennis.</p>
+      <p id="aha4b" hidden>Dan die lijn met de piek en het dal: die staat niet in het onderzoek van Dunning en Kruger uit 1999. Ze ontstond later, op internet. U herkende haar toch. Ook dat is kennis, alleen niet de soort die u dacht te hebben.</p>
+    </div>
+  </div>
+</section>
+
+<section class="hall" id="z5">
+  <div class="plaque">
+    <div class="hallno">Zaal V</div>
+    <h2>De Meta&shy;machine</h2>
+    <div class="sub">U bevindt zich hier · u bevond zich hier al de hele tijd</div>
+    <p class="body">Deze machine doet niets zelf. Ze kijkt naar de andere machines, en vooral naar u, en schrijft op wat ze ziet. U leest nu wat ze opschrijft over hoe u leest wat ze opschrijft.</p>
+    <p class="body">Ze kan ook machines bouwen. Ook machines die machines bouwen. Daar zit een grens aan. Die grens is niet technisch.</p>
+  </div>
+  <div class="apparatus">
+    <div class="rivets"><i></i><i></i><i></i><i></i></div>
+    <div class="metastats">
+      <div class="kstat"><b id="mSecs">0</b><span>Seconden in het gebouw</span></div>
+      <div class="kstat"><b id="mActs">0</b><span>Handelingen</span></div>
+      <div class="kstat"><b id="mDescr">0</b><span>Keer beschreven</span></div>
+    </div>
+    <div class="log" id="log" aria-live="polite"></div>
+    <div class="btnrow">
+      <button class="btn" id="buildBtn">Bouw een machine</button>
+      <button class="btn" id="nestBtn">Bouw een machine die machines bouwt</button>
+    </div>
+    <div class="built" id="built">Er zijn vijf machines. Dat is er één meer dan nodig, maar niemand weet welke.</div>
+    <div id="nestBox"></div>
+  </div>
+</section>
+
+<section class="finale" id="z6">
+  <div class="mono">Uitgang · Afdeling Oordelen</div>
+  <h2>Het <i>Eindoordeel</i></h2>
+  <p style="max-width:52ch;color:var(--muted)">De Machine weegt wat u deed in alle vijf de zalen en stelt een officieel oordeel op. Het oordeel is onherroepelijk, tot u opnieuw klikt.</p>
+  <button class="btn solid" id="judgeBtn">Laat De Machine oordelen</button>
+  <article class="letter" id="letter" hidden></article>
+</section>
+
+<footer>
+  <div>
+    <h3>Gebruiksaanwijzing</h3>
+    <ol>
+      <li>De Machine is niet aansprakelijk voor inzichten.</li>
+      <li>Inzichten opgedaan in Zaal IV kunnen niet worden geretourneerd.</li>
+      <li>Wie deze gebruiksaanwijzing leest, gebruikt De Machine al.</li>
+      <li>Lees artikel 5 eerst.</li>
+      <li>Lees artikel 4 niet.</li>
+      <li>Er is geen artikel 6.</li>
+      <li>Zie artikel 6.</li>
+    </ol>
+  </div>
+  <div>
+    <h3>Bronnen, voor wie wil controleren</h3>
+    <ol>
+      <li>B. Castiglione, <i>Il Libro del Cortegiano</i> (1528), over <i>sprezzatura</i>.</li>
+      <li>De Stoïcijnse <i>apatheia</i>: vrijheid van verstorende hartstochten, niet onverschilligheid.</li>
+      <li>T. Bridgman, S. Cummings &amp; J. Ballard, ‘Who built Maslow’s pyramid?’ (2019), over C. McDermid (1960).</li>
+      <li>A. Maslow, <i>The Farther Reaches of Human Nature</i> (1971), over zelftranscendentie.</li>
+      <li>J. Kruger &amp; D. Dunning, ‘Unskilled and unaware of it’ (1999).</li>
+      <li>M. Gleiser, <i>The Island of Knowledge</i> (2014).</li>
+    </ol>
+  </div>
+</footer>
+
+</div>
+
+<script>
+(function(){
+const $=id=>document.getElementById(id);
+function h(tag,attrs={},...kids){const e=document.createElement(tag);for(const[k,v]of Object.entries(attrs)){if(v==null||v===false)continue;if(k==="class")e.className=v;else if(k==="style")e.style.cssText=v;else if(k.startsWith("on"))e.addEventListener(k.slice(2),v);else e.setAttribute(k,v===true?"":v)}for(const k of kids.flat()){if(k==null||k===false)continue;e.append(k.nodeType?k:document.createTextNode(String(k)))}return e}
+const pick=a=>a[Math.floor(Math.random()*a.length)];
+const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
+const reduce=window.matchMedia&&matchMedia("(prefers-reduced-motion: reduce)").matches;
+const T0=Date.now();
+const S={last:Date.now(),acts:0,actTimes:[],burst:0,
+  nonch:35,tries:0,nonchDone:false,idleLogged:false,
+  care:{res:100,visible:false,taps:0,dropped:[],items:[
+    {n:"Het klimaat",v:78},{n:"Uw inbox (2.847 ongelezen)",v:52},{n:"Wereldvrede",v:66},{n:"De plant op de vensterbank",v:44},
+    {n:"De afwas",v:58},{n:"Een vriend die u al maanden niet sprak",v:71},{n:"Pandemische paraatheid",v:62}]},
+  m:{filled:[false,false,false,false,false],trans:false,transFull:false,refusals:0,hunger:false,topAt:null},
+  k:{n:0,qs:[]},
+  meta:{log:[],descr:0,built:0,depth:0,visits:1,seen:{}}};
+
+let visits=1;try{visits=(+localStorage.getItem("dm-visits")||0)+1;localStorage.setItem("dm-visits",String(visits))}catch(e){}
+S.meta.visits=visits;
+
+/* ---------- meta log ---------- */
+function stamp(){const s=Math.floor((Date.now()-T0)/1000);return String(Math.floor(s/60)).padStart(2,"0")+":"+String(s%60).padStart(2,"0")}
+function log(msg){S.meta.log.unshift({t:stamp(),msg});if(S.meta.log.length>60)S.meta.log.pop();S.meta.descr++;
+  $("log").replaceChildren(...S.meta.log.map(l=>h("div",{},h("time",{},l.t),h("span",{},l.msg))));}
+
+/* ---------- acting ---------- */
+function act(cost){S.last=Date.now();S.acts++;S.actTimes.push(performance.now());S.burst=Math.min(S.burst+1,8);
+  if(cost)S.nonch=Math.max(0,S.nonch-cost);S.idleLogged=false}
+document.addEventListener("pointerdown",()=>{S.last=Date.now();S.idleLogged=false},{passive:true});
+document.addEventListener("keydown",()=>{S.last=Date.now();S.idleLogged=false});
+
+/* ---------- gears ---------- */
+function gearPath(cx,cy,teeth,ro,ri){let d="";const step=Math.PI*2/teeth;
+  for(let i=0;i<teeth;i++){const a=i*step;const pts=[[ri,a],[ro,a+step*.18],[ro,a+step*.48],[ri,a+step*.66]];
+    pts.forEach(([r,an],j)=>{const x=(cx+r*Math.cos(an)).toFixed(2),y=(cy+r*Math.sin(an)).toFixed(2);d+=(i===0&&j===0?"M":"L")+x+" "+y})}
+  return d+"Z"}
+const gs=$("gearSvg");const NS="http://www.w3.org/2000/svg";
+function sv(tag,attrs){const e=document.createElementNS(NS,tag);for(const k in attrs)e.setAttribute(k,attrs[k]);return e}
+const G1=sv("g",{}),G2=sv("g",{}),G3=sv("g",{});
+G1.append(sv("path",{d:gearPath(0,0,24,150,132),fill:"#C9A55A"}),sv("circle",{r:"112",fill:"#11131C"}),sv("circle",{r:"100",fill:"none",stroke:"#7E6631","stroke-width":"2"}));
+for(let i=0;i<6;i++){G1.append(sv("rect",{x:"-7",y:"-100",width:"14",height:"80",fill:"#C9A55A",transform:`rotate(${i*60})`}))}
+G1.append(sv("circle",{r:"26",fill:"#C9A55A"}),sv("circle",{r:"9",fill:"#11131C"}));
+G2.append(sv("path",{d:gearPath(0,0,12,78,62),fill:"#71B5A2"}),sv("circle",{r:"46",fill:"#11131C"}),sv("circle",{r:"14",fill:"#71B5A2"}));
+G3.append(sv("path",{d:gearPath(0,0,9,58,45),fill:"#C4554B"}),sv("circle",{r:"30",fill:"#11131C"}),sv("circle",{r:"10",fill:"#C4554B"}));
+const gw=(g,x,y)=>{const w=sv("g",{transform:`translate(${x} ${y})`});w.append(g);gs.append(w);return g};
+gw(G1,170,200);gw(G2,346,72);gw(G3,130,395);
+const lbl=sv("text",{x:"170",y:"206","text-anchor":"middle","font-family":"Bodoni Moda, Georgia, serif","font-style":"italic","font-size":"15",fill:"#ECE4D3"});lbl.textContent="u";gs.append(lbl);
+let ang=0,lastF=performance.now();
+function frame(t){const dt=Math.min(.1,(t-lastF)/1000);lastF=t;
+  S.burst=Math.max(0,S.burst-dt*1.5);
+  const speed=reduce?0:(6+S.burst*22+S.nonch*.05);ang+=speed*dt;
+  G1.setAttribute("transform",`rotate(${ang.toFixed(2)})`);
+  G2.setAttribute("transform",`rotate(${(-ang*24/12+7).toFixed(2)})`);
+  G3.setAttribute("transform",`rotate(${(-ang*24/9+11).toFixed(2)})`);
+  requestAnimationFrame(frame)}
+requestAnimationFrame(frame);
+
+/* ---------- console dials ---------- */
+const DIALS=[["nonch","Nonchalance"],["zorg","Zorg"],["behoefte","Behoefte"],["kennis","Kennis"],["zelf","Zelfbewustzijn"],["total","Rendement"]];
+const C=2*Math.PI*40,SW=C*.75;
+const dialEls={};
+const cons=document.querySelector(".console");
+DIALS.forEach(([k,n])=>{const svg=sv("svg",{viewBox:"0 0 100 100"});
+  svg.append(sv("circle",{cx:"50",cy:"50",r:"40",fill:"none",stroke:"#343952","stroke-width":"7","stroke-linecap":"round","stroke-dasharray":`${SW} ${C}`,transform:"rotate(135 50 50)"}));
+  const arc=sv("circle",{cx:"50",cy:"50",r:"40",fill:"none",stroke:k==="total"?"#EBCB86":"#C9A55A","stroke-width":"7","stroke-linecap":"round","stroke-dasharray":`0 ${C}`,transform:"rotate(135 50 50)"});
+  svg.append(arc);
+  for(let i=0;i<=10;i++){const a=(135+i*27)*Math.PI/180;svg.append(sv("line",{x1:(50+31*Math.cos(a)).toFixed(1),y1:(50+31*Math.sin(a)).toFixed(1),x2:(50+28*Math.cos(a)).toFixed(1),y2:(50+28*Math.sin(a)).toFixed(1),stroke:"#7E6631","stroke-width":"1"}))}
+  const v=h("div",{class:"v"},"0");
+  const d=h("div",{class:"dial"+(k==="total"?" total":"")},svg,v,h("div",{class:"n"},n));
+  cons.append(d);dialEls[k]={arc,v};});
+function vals(){
+  const items=S.care.items;const zorg=items.reduce((a,i)=>a+i.v,0)/items.length;
+  const lvl=S.m.filled.filter(Boolean).length+(S.m.transFull?1:0);
+  const beh=lvl/6*100;
+  const ken=clamp(S.k.n/12*100,0,100);
+  const zelf=clamp(S.meta.descr*3,0,100);
+  const tot=(S.nonch+zorg+beh+ken+zelf)/5;
+  return{nonch:S.nonch,zorg,behoefte:beh,kennis:ken,zelf,total:tot}}
+function renderDials(){const v=vals();for(const k in dialEls){const x=clamp(v[k],0,100);dialEls[k].arc.setAttribute("stroke-dasharray",`${(x/100*SW).toFixed(1)} ${C}`);dialEls[k].v.textContent=Math.round(x)}
+  const t=v.total;$("consoleCap").textContent=t<15?"Rendement laag. Dat is gebruikelijk bij aanvang.":t<35?"De Machine komt op gang. U ook, vermoedelijk.":t<55?"Rendement gemiddeld. Precies zoals verwacht, en daarom verdacht.":t<75?"Rendement hoog. De Machine vraagt zich af wat u wilt bewijzen.":"Rendement uitzonderlijk. Er is iemand heel goed in dingen die niet bestaan."}
+
+/* ---------- lever ---------- */
+let leverN=0;
+$("lever").onclick=()=>{act(4);leverN++;S.burst=8;
+  const lines=["De Machine stond al aan. Ze draaide op uw verwachting.","Nog steeds aan. Inschakelen is hier vooral een gevoel.","U kunt De Machine niet harder aanzetten. Wel vaker.","Deze hendel is nergens op aangesloten. Kijk naar de tandwielen.","Ziet u? Ze draaiden sneller. Dat kwam door u, niet door de hendel."];
+  $("leverSay").textContent=lines[Math.min(leverN-1,lines.length-1)];
+  if(leverN===1)log("De bezoeker zette De Machine aan. De Machine stond al aan. Geen van beiden zei er iets van.");
+  if(leverN===5)log("De bezoeker heeft vijf keer aan een hendel getrokken die nergens op is aangesloten. Dit is genoteerd onder ‘geloof’.")};
+
+/* ---------- I nonchalance ---------- */
+const SHRUGS=["Prima.","Zal wel.","Ook goed.","Moet kunnen.","Joh.","Is dat zo.","Kan gebeuren.","Hm.","Als u het zegt.","Boeiend. Niet heus.","Doe maar gewoon.","Ach ja."];
+const NLABELS=["Probeer het","Probeer het minder","Nog minder","Nog veel minder","Ach.","…","Laat maar"];
+$("nBtn").onclick=()=>{S.tries++;act(15);
+  $("nBtn").textContent=NLABELS[Math.min(S.tries,NLABELS.length-1)];
+  $("nSay").textContent=pick(SHRUGS);
+  if(S.tries===1)log("De bezoeker drukte op de knop. Dat was precies wat niet de bedoeling was, en daarom precies de bedoeling.");
+  if(S.tries===7)log("Zeven pogingen tot nonchalance. De Nonchalancemachine is ontroerd, maar laat dat niet merken.");
+  if(S.tries===20)log("Twintig keer. De bezoeker wil heel graag niet willen.");
+  renderN()};
+function renderN(){$("nNum").textContent=Math.round(S.nonch);$("nBar").style.width=S.nonch+"%"}
+
+/* ---------- II apathy ---------- */
+function renderCare(){
+  const c=S.care;$("resNum").textContent=Math.floor(c.res)+" ze";$("resBar").style.width=c.res+"%";
+  const box=$("care");
+  if(!box.children.length){c.items.forEach((it,i)=>{const b=h("button",{id:"care"+i},"Geef om");
+      b.onclick=()=>tapCare(i);
+      box.append(h("div",{class:"care-row",id:"cr"+i},h("div",{class:"nm"},h("span",{},it.n),h("span",{class:"tag"})),b,h("div",{class:"bar"},h("i",{}))))})}
+  c.items.forEach((it,i)=>{const row=$("cr"+i);row.querySelector(".bar i").style.width=it.v+"%";
+    const gone=it.v<=0;row.classList.toggle("gone",gone);row.querySelector(".tag").textContent=gone?"losgelaten":"";
+    $("care"+i).textContent=gone?"Toch weer":"Geef om"});
+}
+function tapCare(i){const c=S.care,it=c.items[i];act(6);
+  const cost=it.v<=0?30:15;
+  if(c.res<cost){$("cSay").textContent=pick(["Uw zorgreservoir is leeg. Probeer het straks weer, als u weer iets voelt.","Er is even geen zorg meer. Dat is geen karakterfout, dat is rekenkunde.","Leeg. Dit heet ook wel: maandagmiddag."]);return}
+  c.res-=cost;c.taps++;
+  if(it.v<=0){it.v=20;$("cSay").textContent=`U gaf weer om „${it.n}”. Het kostte dubbel. Terugkomen kost altijd meer.`;log(`De bezoeker pakte „${it.n}” weer op. Dat is zeldzaam. De Machine noteert het met een klein potloodstreepje.`)}
+  else{it.v=Math.min(100,it.v+30);$("cSay").textContent=pick([`U geeft om „${it.n}”. Voor nu.`,`„${it.n}” voelt zich gezien.`,"Goed besteed. Vermoedelijk.","Uw zorg is genoteerd en wordt in behandeling genomen."]);
+    if(c.taps===1)log(`De bezoeker gaf om „${it.n}”. Kosten: 15 zorgeenheden. Opbrengst: onbekend.`)}
+  renderCare()}
+function careTick(){const c=S.care;if(!c.visible)return;
+  c.res=Math.min(100,c.res+.3);
+  c.items.forEach(it=>{if(it.v>0){it.v=Math.max(0,it.v-.15);if(it.v===0){c.dropped.push(it.n);dropped(it)}}});
+  renderCare()}
+function dropped(it){const c=S.care;
+  log(`De bezoeker liet „${it.n}” los. Niemand zag het, behalve deze machine.`);
+  $("cSay").textContent=`„${it.n}” is losgelaten. Het maakte geen geluid.`;
+  if(c.dropped.length===1){$("aha2").hidden=false;$("aha2").classList.add("reveal")}
+  if(c.dropped.length===3){$("aha2b").hidden=false;log("Drie zorgen losgelaten. De Apathiemachine draait nu op ware grootte.")}
+  if(c.dropped.length===7)log("Alle zorgen zijn losgelaten. Het is heel rustig in Zaal II. Te rustig.")}
+
+/* ---------- III maslow ---------- */
+const LAYERS=[["Fysiologische behoeften","eten, slapen, warmte"],["Veiligheid","dak, werk, voorspelbaarheid"],["Erbij horen","liefde, vriendschap, groepsapp"],["Waardering","erkenning, aanzien, likes"],["Zelfactualisatie","worden wie u bent"]];
+const REFUSE=["Eerst de laag eronder, graag.","Zo werken piramides niet.","Ambitie wordt gewaardeerd, maar niet beloond.","U kunt niet aan zelfactualisatie doen zonder ontbijt.","De piramide is niet geamuseerd.","Overslaan is voorbehouden aan mensen met personeel.","U probeert erbij te horen zonder dak. Dat heet een festival."];
+function trap(k,rows){const hb=50*(1-k/rows),ht=50*(1-(k+1)/rows);return `polygon(${(50-ht).toFixed(2)}% 0, ${(50+ht).toFixed(2)}% 0, ${(50+hb).toFixed(2)}% 100%, ${(50-hb).toFixed(2)}% 100%)`}
+function renderPyr(){
+  const p=$("pyr");p.replaceChildren();
+  if(S.m.trans){p.append(h("button",{class:"layer trans"+(S.m.transFull?" full":""),onclick:clickTrans},
+      h("div",{class:"shape",style:"clip-path:polygon(50% 0, 62% 50%, 50% 100%, 38% 50%)"}),
+      h("div",{class:"lbl"},h("b",{},"Zelftranscendentie"),h("span",{},"niet op de tekening"))))}
+  for(let k=4;k>=0;k--){const full=S.m.filled[k];const paused=full&&S.m.hunger&&k>0;
+    p.append(h("button",{class:"layer"+(full?" full":"")+(paused?" paused":""),id:"lay"+k,onclick:()=>clickLayer(k),"aria-pressed":String(full)},
+      h("div",{class:"shape",style:`clip-path:${trap(k,5)}`}),
+      h("div",{class:"lbl"},h("b",{},LAYERS[k][0]),h("span",{},paused?"op pauze":LAYERS[k][1]))))}
+  p.append(h("div",{class:"layer base full"},h("div",{class:"shape"}),h("div",{class:"lbl"},h("b",{},"Wifi & batterij"),h("span",{},"fundering, later toegevoegd"))));
+}
+function clickLayer(k){act(6);const m=S.m;
+  if(m.filled[k]){$("mSay").textContent=k===0&&!m.hunger?"Al vervuld. Of denkt u van wel.":"Al vervuld. Vullen is makkelijker dan voelen dat het vol is.";return}
+  if(k>0&&!m.filled[k-1]){m.refusals++;$("mSay").textContent=REFUSE[(m.refusals-1)%REFUSE.length];
+    const el=$("lay"+k);el.classList.remove("shake");void el.offsetWidth;el.classList.add("shake");
+    if(m.refusals===1)log("De bezoeker probeerde een laag over te slaan. De piramide was niet geamuseerd.");
+    if(m.refusals===3){showAha3();log("Drie weigeringen. De piramide is strenger dan haar bedenker ooit bedoelde.")}
+    return}
+  m.filled[k]=true;
+  if(k===0&&m.hunger){m.hunger=false;$("mSay").textContent="U heeft gegeten. De rest van de piramide gaat weer aan, alsof er niets gebeurd is.";log("De bezoeker at iets. Zelfactualisatie werd hervat.");renderPyr();return}
+  $("mSay").textContent=["Gegeten, geslapen. U functioneert.","Een dak. De regen is nu iemand anders z'n probleem.","U hoort erbij. Er is een groepsapp aangemaakt.","U wordt gewaardeerd. Er is een vergaderverzoek.","U bent geworden wie u bent. Dit voelt korter dan verwacht."][k];
+  if(k===4){m.topAt=Math.round((Date.now()-T0)/1000);log(`De bezoeker bereikte zelfactualisatie in ${m.topAt} seconden. Maslow deed er een leven over.`);showAha3();
+    setTimeout(()=>{m.trans=true;renderPyr();$("mSay").textContent="Boven de top verschijnt iets wat niet op de tekening staat.";$("aha3b").hidden=false},1600);
+    setTimeout(()=>{if(m.filled[0]){m.filled[0]=false;m.hunger=true;renderPyr();$("mSay").textContent="U heeft weer honger. De top is er nog. Niemand kijkt er nu naar.";log("De bezoeker kreeg weer honger. De top bleef staan, maar niemand keek er nog naar.")}},9000)}
+  renderPyr()}
+function clickTrans(){act(6);const m=S.m;
+  if(m.transFull){$("mSay").textContent="U bent al voorbij uzelf. Er is hier niemand meer om dat te merken.";return}
+  m.transFull=true;$("mSay").textContent="U zet zich in voor iets dat groter is dan uzelf. Uw piramide ziet er ineens klein uit.";
+  log("De bezoeker transcendeerde zichzelf. Deze machine weet niet goed wie ze nu nog beschrijft.");renderPyr()}
+let aha3=false;function showAha3(){if(aha3)return;aha3=true;$("aha3").hidden=false;$("aha3").classList.add("reveal")}
+
+/* ---------- IV knowledge ---------- */
+const FACTS=[
+ ["Een banaan is botanisch gezien een bes. Een aardbei niet.","Wat is een bes dan eigenlijk?"],
+ ["Haaien bestaan langer dan bomen.","Waar zwommen ze langs, voordat er bossen waren?"],
+ ["Cleopatra leefde dichter bij de eerste maanlanding dan bij de bouw van de Grote Piramide van Gizeh.","Welke oudheid leven wij nu zelf?"],
+ ["In en op uw lichaam leven ongeveer evenveel bacteriecellen als menselijke cellen.","Wie leest deze zin eigenlijk?"],
+ ["Fleming ontdekte penicilline in 1928 doordat een kweekschaal schimmelde terwijl hij op vakantie was.","Hoeveel ontdekkingen staan er nu ongezien te beschimmelen?"],
+ ["Een dag op Venus duurt langer dan een jaar op Venus.","Wat is een dag, als de zon niet meewerkt?"],
+ ["Wombats maken kubusvormige keutels.","Waarom zijn de hoeken zo scherp?"],
+ ["Er staan op aarde meer bomen dan er sterren zijn in de Melkweg.","Wie heeft die geteld, en hoe?"],
+ ["De Universiteit van Oxford is ouder dan het Azteekse rijk.","Wat noemen we eigenlijk oud?"],
+ ["Een octopus heeft drie harten en blauw bloed.","Waar zit dan zijn gevoel?"],
+ ["Het woord robot komt van het Tsjechische robota: herendienst, verplichte arbeid.","Voor wie werkt deze machine eigenlijk?"],
+ ["Socrates schreef zelf nooit iets op. Alles wat hij wist, kennen we uit de tweede hand.","Hoeveel van wat u weet, weet u zelf?"]];
+const CONF=[8,70,94,100,42,16,20,28,36,45,54,62,70];
+function confLabel(n){if(n===0)return"Nog geen mening";if(n<=2)return"Stijgend, veelbelovend";if(n===3)return"Top van de Onwetendheid";if(n<=6)return"Dal van de Twijfel";if(n<=9)return"Helling van de Verlichting";return"Plateau van de Bescheidenheid"}
+function rOf(n){return Math.min(128,14+10*n)}
+function renderIsland(){
+  const svg=$("island");svg.replaceChildren();const n=S.k.n;const r=rOf(n);
+  const defs=sv("defs",{});const g=sv("radialGradient",{id:"fog"});g.append(sv("stop",{offset:"0","stop-color":"#21253A"}),sv("stop",{offset:"1","stop-color":"#11131C"}));defs.append(g);svg.append(defs);
+  svg.append(sv("rect",{x:"0",y:"0",width:"300",height:"300",fill:"url(#fog)"}));
+  for(let i=0;i<46;i++){const a=i*2.399,rr=60+((i*53)%95);const x=150+rr*Math.cos(a),y=150+rr*Math.sin(a);
+    if(Math.hypot(x-150,y-150)<r+10)continue;const t=sv("text",{x:x.toFixed(1),y:y.toFixed(1),"font-size":"10","text-anchor":"middle",fill:"#343952","font-family":"DM Mono, monospace"});t.textContent="?";svg.append(t)}
+  svg.append(sv("circle",{cx:"150",cy:"150",r:String(r+5),fill:"none",stroke:"#71B5A2","stroke-width":"1.5","stroke-dasharray":"3 4"}));
+  svg.append(sv("circle",{cx:"150",cy:"150",r:String(r),fill:"#C9A55A","fill-opacity":".85"}));
+  svg.append(sv("circle",{cx:"150",cy:"150",r:String(Math.max(4,r*.55)),fill:"#EBCB86","fill-opacity":".5"}));
+  S.k.qs.forEach((q,i)=>{const a=-Math.PI/2+i*2.399;const x=150+(r+16)*Math.cos(a),y=150+(r+16)*Math.sin(a);
+    svg.append(sv("circle",{cx:x.toFixed(1),cy:y.toFixed(1),r:"7",fill:"#11131C",stroke:"#71B5A2","stroke-width":"1.2"}));
+    const t=sv("text",{x:x.toFixed(1),y:(y+3.5).toFixed(1),"font-size":"10","text-anchor":"middle",fill:"#71B5A2","font-family":"DM Mono, monospace"});t.textContent="?";svg.append(t)});
+  svg.append(sv("line",{x1:"150",y1:"150",x2:"150",y2:String(150-r),stroke:"#11131C","stroke-width":"1.5"}));
+  svg.append(sv("path",{d:`M150 ${150-r} l12 4 l-12 4 z`,fill:"#C4554B"}));
+  $("kA").textContent=Math.round(Math.PI*r*r).toLocaleString("nl-NL");
+  $("kP").textContent=Math.round(2*Math.PI*r).toLocaleString("nl-NL");
+  $("kN").textContent=S.k.qs.length;
+  const cs=$("confSvg");cs.replaceChildren();
+  const pts=CONF.map((c,i)=>[i/(CONF.length-1)*290+5,75-c*.68]);
+  cs.append(sv("line",{x1:"5",y1:"75",x2:"295",y2:"75",stroke:"#343952","stroke-width":"1"}));
+  const upto=Math.min(n,CONF.length-1);
+  if(n>0){const shown=pts.slice(0,upto+1);
+    cs.append(sv("path",{d:"M"+shown.map(p=>p[0].toFixed(1)+" "+p[1].toFixed(1)).join(" L")+` L${shown[shown.length-1][0].toFixed(1)} 75 L5 75 Z`,fill:"#C9A55A","fill-opacity":".15"}));
+    cs.append(sv("path",{d:"M"+shown.map(p=>p[0].toFixed(1)+" "+p[1].toFixed(1)).join(" L"),fill:"none",stroke:"#C9A55A","stroke-width":"2","vector-effect":"non-scaling-stroke"}));
+    const e=shown[shown.length-1];cs.append(sv("circle",{cx:e[0].toFixed(1),cy:e[1].toFixed(1),r:"3.5",fill:"#EBCB86"}))}
+  $("kConfLbl").textContent=confLabel(n);
+  $("qlist").replaceChildren(...S.k.qs.slice().reverse().map(q=>h("span",{},q)));
+}
+$("kBtn").onclick=()=>{act(6);const k=S.k;
+  if(k.n>=FACTS.length){k.n++;$("kFact").textContent=pick(["U leert iets wat u al wist. Het voelt precies hetzelfde.","Het eiland is af. De kust niet.","U herhaalt een feit. Dat heet ook wel: een mening.","Er valt niets meer te leren in deze zaal. Dat is het gevaarlijkste wat een zaal kan zeggen."]);$("kQ").textContent="";renderDials();return}
+  const [f,q]=FACTS[k.n];k.n++;k.qs.push(q);
+  $("kFact").textContent=f;$("kQ").textContent="Nieuwe vraag: "+q;
+  if(k.n===1)log("De bezoeker leerde iets. Het onbekende groeide mee, zoals afgesproken.");
+  if(k.n===3)log("De bezoeker staat op de Top van de Onwetendheid. Het uitzicht is prachtig. Het klopt niet.");
+  if(k.n===4){log("De bezoeker daalt af in het Dal van de Twijfel. Dit is het eerste echte teken van kennis.");$("aha4").hidden=false;$("aha4").classList.add("reveal")}
+  if(k.n===6)$("aha4b").hidden=false;
+  if(k.n===5)log("De bezoeker kent nu vijf feiten en vijf nieuwe vragen. De balans blijft precies nul. Dat is geen fout.");
+  if(k.n===FACTS.length)log("Alle feiten van deze zaal zijn geleerd. Er liggen nu twaalf vragen op de kust. Niemand komt ze ophalen.");
+  if(k.n===FACTS.length)$("kBtn").textContent="Leer nog iets";
+  renderIsland()};
+
+/* ---------- V meta ---------- */
+const MA=["Uitstel","Spijt","Vergader","Voornemens","Zondagavond","Inbox","Twijfel","Heimwee","Gelijkhebbers","Smoesjes","Notulen","Afstemmings","Kleingeld","Beleids"];
+const MB=["goede voornemens","ongelezen mail","halve ideeën","verloren sokken","Kamervragen","het zondagavondgevoel","beleefdheid","stilte","oude wachtwoorden","half gelezen boeken","actiepunten van vorig jaar","de zin ‘even schakelen’"];
+const MC=["morgen","een actiepunt","nog een vergadering","een vaag schuldgevoel","precies hetzelfde, maar later","een notitie die niemand leest","warme lucht","inzicht, soms","een nieuwe machine","een tweede afspraak over de eerste afspraak"];
+$("buildBtn").onclick=()=>{act(6);S.meta.built++;
+  const name=`De ${pick(MA)}machine`;const r=(Math.random()*3).toFixed(1).replace(".",",");
+  $("built").replaceChildren(h("span",{},`${name} zet ${pick(MB)} om in ${pick(MC)}.`),h("small",{},`Rendement ${r}% · machine nr. ${5+S.meta.built} · niemand heeft erom gevraagd`));
+  if(S.meta.built===1)log(`De bezoeker bouwde ${name}. Er zijn nu zes machines. De vijf oude kijken een beetje jaloers.`);
+  else if(S.meta.built%5===0)log(`De bezoeker heeft ${S.meta.built} machines gebouwd. Dit is een fabriek geworden. Een fabriek is een machine.`)};
+$("nestBtn").onclick=()=>{act(6);const m=S.meta;m.depth=Math.min(m.depth+1,8);
+  let inner=null;for(let d=m.depth;d>=1;d--){const label=d===m.depth?"Machine":"Machine die bovenstaande machine bouwt";
+    const box=h("div",{class:"nest",style:`border-color:${d%2?"#7E6631":"#71B5A2"}`},h("span",{},`${label} · niveau ${d}`));if(inner)box.append(inner);inner=box}
+  $("nestBox").replaceChildren(inner);
+  const lines={1:"De bezoeker bouwde een machine die machines bouwt. Deze zin is er een van.",3:"Drie lagen diep. Ergens onderin draait nog steeds de eerste machine, zonder het te weten.",5:"Vijf lagen. De Metamachine beschrijft nu een machine die een machine beschrijft die een machine bouwt.",8:"Verder bouwen heeft geen zin. Wie de laatste machine bouwt, is geen machine meer. Dat bent u."};
+  if(lines[m.depth])log(lines[m.depth]);
+  if(m.depth===8){$("nestBtn").disabled=true;$("nestBtn").textContent="De bouwer is bereikt"}};
+
+/* ---------- hall visits ---------- */
+const ENTER={z1:"De bezoeker betreedt Zaal I. De Nonchalancemachine doet alsof ze het niet merkt.",z2:"De bezoeker betreedt Zaal II. De zorgen beginnen te lekken, want er wordt gekeken.",z3:"De bezoeker betreedt Zaal III. De piramide houdt de adem in.",z4:"De bezoeker betreedt Zaal IV. Het eiland is klein, de zee is beleefd.",z5:"De bezoeker betreedt Zaal V. Hier wordt beschreven hoe de bezoeker leest dat de bezoeker wordt beschreven.",z6:"De bezoeker nadert het Eindoordeel. Het Eindoordeel nadert terug."};
+if("IntersectionObserver" in window){
+  const io=new IntersectionObserver(es=>es.forEach(e=>{const id=e.target.id;
+    if(id==="z2")S.care.visible=e.isIntersecting;
+    if(e.isIntersecting&&!S.meta.seen[id]){S.meta.seen[id]=true;log(ENTER[id])}}),{threshold:.25});
+  ["z1","z2","z3","z4","z5","z6"].forEach(id=>io.observe($(id)));
+}else S.care.visible=true;
+
+/* ---------- finale ---------- */
+let judged=0;
+$("judgeBtn").onclick=()=>{act(4);judged++;const v=vals();const c=S.care;
+  const alive=c.items.filter(i=>i.v>0);const best=c.items.slice().sort((a,b)=>b.v-a.v)[0];
+  const nTxt=S.nonch>80?"olympisch nonchalant":S.nonch>50?"beheerst onverschillig":S.nonch>20?"zichtbaar zoekend":"hevig betrokken (gecondoleerd)";
+  const lvl=S.m.transFull?"zelftranscendentie, een niveau dat officieel niet bestaat":S.m.filled.lastIndexOf(true)>=0?LAYERS[S.m.filled.lastIndexOf(true)][0].toLowerCase():"de fundering (wifi & batterij)";
+  const secs=Math.round((Date.now()-T0)/1000);
+  const kenmerk="DM/"+new Date().getFullYear()+"/"+String(S.acts).padStart(4,"0")+"-"+judged;
+  const verdicts=["U was de hele tijd de machine. Wij waren alleen de knoppen.","De Machine heeft u bekeken. U heeft De Machine bekeken. Het staat gelijk.","Er is niets gebeurd wat u niet zelf deed. Dat is het hele geheim.","U kwam voor vijf machines en ging weg als de zesde."];
+  const letter=$("letter");letter.hidden=false;
+  letter.replaceChildren(
+    h("div",{class:"head"},h("div",{class:"inst"},"Koninklijk Instituut voor Overbodige Werktuigen",h("span",{},"Afdeling Oordelen · Directie Menselijk Tekort")),
+      h("dl",{},h("dt",{},"Datum"),h("dd",{},new Date().toLocaleDateString("nl-NL",{day:"numeric",month:"long",year:"numeric"})),h("dt",{},"Betreft"),h("dd",{},"Uitkomst van uw bezoek"),h("dt",{},"Ons kenmerk"),h("dd",{},kenmerk))),
+    h("p",{},"Geachte bezoeker,"),
+    h("p",{},`Hierbij informeer ik u over de uitkomst van uw bezoek van ${secs} seconden aan De Machine. Het bezoek is beoordeeld op vijf onderdelen, in samenhang en met oog voor de menselijke maat.`),
+    h("p",{},`In Zaal I bent u bevonden: ${nTxt}, met een nonchalance van ${Math.round(S.nonch)} procent${S.tries?` na ${S.tries} pogingen om nonchalant te zijn`:" zonder er ook maar één poging toe te doen, wat in Zaal I als de hoogste vorm van inzet geldt"}.`),
+    h("p",{},`In Zaal II hield u ${alive.length} van de zeven zorgen in leven. Het meest gaf u om „${best.n}”.${c.dropped.length?` U liet als eerste „${c.dropped[0]}” los.`:" U liet niets los. Dat komt meestal doordat u niet lang genoeg keek."}`),
+    h("p",{},`In Zaal III bereikte u ${lvl}${S.m.refusals?`, na ${S.m.refusals} keer te zijn teruggestuurd door een piramide die haar eigen bedenker niet had gelezen`:""}.`),
+    h("p",{},`In Zaal IV leerde u ${Math.min(S.k.n,FACTS.length)} feiten en verzamelde u ${S.k.qs.length} vragen. Uw kust met het onbekende meet ${Math.round(2*Math.PI*rOf(S.k.n))} eenheden. Dat is ${S.k.n?"meer":"evenveel"} dan toen u binnenkwam, en zo hoort het.`),
+    h("p",{},`De Metamachine heeft u ${S.meta.descr} keer beschreven, op basis van ${S.acts} handelingen.${S.meta.visits>1?` Dit is uw bezoek nummer ${S.meta.visits}. De Machine deed tot nu toe alsof ze dat niet wist.`:""}${judged>1?` Dit is oordeel nummer ${judged}. Het vorige oordeel veranderde omdat u ernaar keek.`:""}`),
+    h("p",{},`Het totale rendement bedraagt ${Math.round(v.total)} procent. Een hoger rendement was mogelijk geweest, maar niet wenselijk.`),
+    h("p",{class:"verdict"},verdicts[(judged-1)%verdicts.length]),
+    h("p",{},"Hoogachtend,"),
+    h("p",{},h("i",{},"De Machine"),h("br"),"namens deze, de Metamachine"),
+    seal());
+  log(judged===1?"De bezoeker liet zich beoordelen. Het oordeel keek terug.":`Oordeel nummer ${judged}. De bezoeker wil een ander antwoord. De Machine begrijpt dat.`);
+  letter.scrollIntoView({behavior:reduce?"auto":"smooth",block:"nearest"})};
+function seal(){const s=sv("svg",{viewBox:"0 0 100 100",class:"seal"});
+  s.append(sv("path",{d:gearPath(50,50,16,47,41),fill:"#7E6631"}),sv("circle",{cx:"50",cy:"50",r:"36",fill:"none",stroke:"#11131C","stroke-width":"1"}));
+  const t=sv("text",{x:"50",y:"57","text-anchor":"middle","font-family":"Bodoni Moda, Georgia, serif","font-style":"italic","font-size":"22",fill:"#11131C"});t.textContent="DM";s.append(t);return s}
+
+/* ---------- main loop ---------- */
+setInterval(()=>{
+  const idle=Date.now()-S.last;
+  if(idle>2500){S.nonch=Math.min(100,S.nonch+1);$("nStat").textContent=S.nonch>=100?"Volledige nonchalance. Raak nu vooral niets aan.":"Nonchalance stijgt. U doet het goed door niets te doen."}
+  else $("nStat").textContent="Inspanning gedetecteerd. Nonchalance daalt.";
+  if(S.nonch>=100&&!S.nonchDone){S.nonchDone=true;$("aha1").hidden=false;$("aha1").classList.add("reveal");$("nSay").textContent="Zie je wel. Het ging vanzelf.";
+    log("De bezoeker bereikte volledige nonchalance door niets te doen. De Nonchalancemachine is onder de indruk, maar laat dat niet merken.")}
+  if(idle>60000&&!S.idleLogged){S.idleLogged=true;log("Er gebeurde een hele minuut niets. De Nonchalancemachine noteert dit als haar beste minuut.")}
+  careTick();renderN();
+  $("mSecs").textContent=Math.round((Date.now()-T0)/1000);$("mActs").textContent=S.acts;$("mDescr").textContent=S.meta.descr;
+  renderDials();
+},250);
+
+/* ---------- boot ---------- */
+renderN();renderCare();renderPyr();renderIsland();
+log(S.meta.visits>1?`De bezoeker is hier voor de ${S.meta.visits}e keer. De Machine doet alsof ze dat niet weet.`:"Er is een bezoeker binnengekomen. De Machine doet alsof ze dat niet merkt.");
+renderDials();
+})();
+</script>
+
+</body>
+</html>
